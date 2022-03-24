@@ -9,8 +9,12 @@ import UIKit
 
 class ViewController: UIViewController,
                       UIPickerViewDataSource,
-                      UIPickerViewDelegate {
+                      UIPickerViewDelegate ,
+                      networkingDelegateProtocole
+{
+   
     
+    @IBOutlet weak var numberOfPhotosLabel: UILabel!
     var result : PhotoCollection = PhotoCollection()
     @IBOutlet weak var rovers_picker: UIPickerView!
     
@@ -18,27 +22,40 @@ class ViewController: UIViewController,
     @IBOutlet weak var date_picker: UIDatePicker!
     @IBOutlet weak var image: UIImageView!
 
-    var rovers = ["Curiosity", "Opportunity", " Spirit"]
+    var rovers = ["Curiosity", "Opportunity", "Spirit"]
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        
-        NetworkService.Shared.getImagesDataFromURL(roverName: "Opportunity", earthdate: "2015-06-03") { resutl in
+    func getNewData(roverName: String, date:String)  {
+        NetworkService.Shared.getImagesDataFromURL(roverName: roverName, earthdate: date) { resutl in
             switch resutl {
             case .success(let photoCollection) :
                 DispatchQueue.main.async {
                     self.result = photoCollection
                     self.itemsID_picker.reloadAllComponents()
+                    self.numberOfPhotosLabel.text = "Num Of Photos: " + String( self.result.photos.count)
                 }
-               
                 break
-            case .failure(let error):
+            case .failure(_):
                 break
             }
         }
     }
     
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        NetworkService.Shared.delegate = self
+        date_picker.addTarget(self, action: #selector(datePickerValueChanged(picker:)), for: .valueChanged)
+        getNewData(roverName: "Opportunity",date: "2015-06-03")
+        
+    }
     
+    @objc func datePickerValueChanged(picker: UIDatePicker)  {
+        let dataFormatter = DateFormatter()
+        dataFormatter.dateFormat = "yyyy-MM-dd"
+        let stringDate = dataFormatter.string(from: date_picker.date)
+        
+        getNewData(roverName: rovers[rovers_picker.selectedRow(inComponent: 0)] ,date: stringDate)
+
+    }
     func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
         var rows = 0
         if pickerView.tag == 1 {
@@ -67,22 +84,42 @@ class ViewController: UIViewController,
     
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         if pickerView.tag == 1 {
+            // yyyy-MM-DD
+
             
+            let dataFormatter = DateFormatter()
+            dataFormatter.dateFormat = "yyyy-MM-dd"
+            let stringDate = dataFormatter.string(from: date_picker.date)
+            
+            getNewData(roverName: rovers[row],date: stringDate)
+
         }
         else {
-            NetworkService.Shared.getImage(url: result.photos[row].img_src) { result in
-                switch result {
-                case .success(let imageFromURL):
-                    DispatchQueue.main.async {
-                        self.image.image = imageFromURL
-                    }
-                    break
-                
-                case .failure(_):
-                    break
-                }
-            }
+            NetworkService.Shared.getImage(url: result.photos[row].img_src)
+            //{ result in
+//                switch result {
+//                case .success(let imageFromURL):
+//                    DispatchQueue.main.async {
+//                        self.image.image = imageFromURL
+//                    }
+//                    break
+//
+//                case .failure(_):
+//                    break
+//                }
+            //}
         }
+    }
+    
+    
+    func imageDownloadedCorrectly(image: UIImage) {
+        DispatchQueue.main.async {
+                               self.image.image = image
+                            }
+    }
+    
+    func imageDidNotDownloadedCorrectly() {
+        
     }
 }
 

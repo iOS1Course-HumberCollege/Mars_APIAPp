@@ -8,8 +8,13 @@
 import Foundation
 import UIKit
 
+protocol networkingDelegateProtocole {
+    func imageDownloadedCorrectly(image : UIImage)
+    func imageDidNotDownloadedCorrectly()
+}
 class NetworkService {
     
+    var delegate : networkingDelegateProtocole?
     static var Shared = NetworkService()
     var api_key = "wArFt3VHK2bJ853DS1uac88LIsGSaFyF4lfgIrkB"
    
@@ -46,13 +51,36 @@ class NetworkService {
                task.resume()
     }
     
+//
+//    func getImage(url: String , completionHandler : @escaping (Result <UIImage, Error>)->Void){
+//        let urlObj = URL(string: url)!
+//        let task = URLSession.shared.dataTask(with: urlObj)
+//            { data, response, error in
+//                   guard error == nil else {
+//                       completionHandler(.failure(error!))
+//                       return
+//                   }
+//                   guard let httpRespons = response as? HTTPURLResponse, (200...299).contains(httpRespons.statusCode) else {
+//                       print ("Incorrect response ")
+//                       return
+//                }
+//                if let imageData = data {
+//                    let image = UIImage(data: imageData)
+//                    completionHandler(.success(image!))
+//                   }
+//               }
+//               task.resume()
+//
+//    }
+//
     
-    func getImage(url: String , completionHandler : @escaping (Result <UIImage, Error>)->Void){
+    
+    func getImage(url: String ){
         let urlObj = URL(string: url)!
         let task = URLSession.shared.dataTask(with: urlObj)
-            { data, response, error in
+        { [self] data, response, error in
                    guard error == nil else {
-                       completionHandler(.failure(error!))
+                       self.delegate?.imageDidNotDownloadedCorrectly()
                        return
                    }
                    guard let httpRespons = response as? HTTPURLResponse, (200...299).contains(httpRespons.statusCode) else {
@@ -61,11 +89,12 @@ class NetworkService {
                 }
                 if let imageData = data {
                     let image = UIImage(data: imageData)
-                    completionHandler(.success(image!))
-                   }
+                    self.delegate?.imageDownloadedCorrectly(image: image!)
+                }
                }
                task.resume()
         
     }
     
+
 }
