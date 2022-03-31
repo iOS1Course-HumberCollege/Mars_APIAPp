@@ -51,28 +51,28 @@ class NetworkService {
                task.resume()
     }
     
-//
-//    func getImage(url: String , completionHandler : @escaping (Result <UIImage, Error>)->Void){
-//        let urlObj = URL(string: url)!
-//        let task = URLSession.shared.dataTask(with: urlObj)
-//            { data, response, error in
-//                   guard error == nil else {
-//                       completionHandler(.failure(error!))
-//                       return
-//                   }
-//                   guard let httpRespons = response as? HTTPURLResponse, (200...299).contains(httpRespons.statusCode) else {
-//                       print ("Incorrect response ")
-//                       return
-//                }
-//                if let imageData = data {
-//                    let image = UIImage(data: imageData)
-//                    completionHandler(.success(image!))
-//                   }
-//               }
-//               task.resume()
-//
-//    }
-//
+
+    func getImage(url: String , completionHandler : @escaping (Result <UIImage, Error>)->Void){
+        let urlObj = URL(string: url)!
+        let task = URLSession.shared.dataTask(with: urlObj)
+            { data, response, error in
+                   guard error == nil else {
+                       completionHandler(.failure(error!))
+                       return
+                   }
+                   guard let httpRespons = response as? HTTPURLResponse, (200...299).contains(httpRespons.statusCode) else {
+                       print ("Incorrect response ")
+                       return
+                }
+                if let imageData = data {
+                    let image = UIImage(data: imageData)
+                    completionHandler(.success(image!))
+                   }
+               }
+               task.resume()
+
+    }
+
     
     
     func getImage(url: String ){

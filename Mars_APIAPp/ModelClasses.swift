@@ -6,7 +6,7 @@
 //
 
 import Foundation
-
+// MVC
 class Photo : Codable{
     var id : Int = 0
     var img_src: String = ""

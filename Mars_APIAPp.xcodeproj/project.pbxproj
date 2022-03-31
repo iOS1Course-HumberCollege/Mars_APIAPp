@@ -15,6 +15,10 @@
 		218A16B127EC9C2500196FBF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 218A16AF27EC9C2500196FBF /* LaunchScreen.storyboard */; };
 		218A16B927EC9E7800196FBF /* NetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 218A16B827EC9E7800196FBF /* NetworkService.swift */; };
 		218A16BB27EC9FBD00196FBF /* ModelClasses.swift in Sources */ = {isa = PBXBuildFile; fileRef = 218A16BA27EC9FBD00196FBF /* ModelClasses.swift */; };
+		219E7E9827F5E09D00A1A7B1 /* FavPhotosTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 219E7E9727F5E09D00A1A7B1 /* FavPhotosTableViewController.swift */; };
+		219E7E9B27F5E17200A1A7B1 /* photoDataModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 219E7E9927F5E17200A1A7B1 /* photoDataModel.xcdatamodeld */; };
+		219E7E9D27F5E28500A1A7B1 /* CoreDataService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 219E7E9C27F5E28500A1A7B1 /* CoreDataService.swift */; };
+		219E7E9F27F5F03A00A1A7B1 /* imageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 219E7E9E27F5F03A00A1A7B1 /* imageViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -28,6 +32,10 @@
 		218A16B227EC9C2500196FBF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		218A16B827EC9E7800196FBF /* NetworkService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkService.swift; sourceTree = "<group>"; };
 		218A16BA27EC9FBD00196FBF /* ModelClasses.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModelClasses.swift; sourceTree = "<group>"; };
+		219E7E9727F5E09D00A1A7B1 /* FavPhotosTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavPhotosTableViewController.swift; sourceTree = "<group>"; };
+		219E7E9A27F5E17200A1A7B1 /* photoDataModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = photoDataModel.xcdatamodel; sourceTree = "<group>"; };
+		219E7E9C27F5E28500A1A7B1 /* CoreDataService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataService.swift; sourceTree = "<group>"; };
+		219E7E9E27F5F03A00A1A7B1 /* imageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = imageViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -69,6 +77,10 @@
 				218A16B227EC9C2500196FBF /* Info.plist */,
 				218A16B827EC9E7800196FBF /* NetworkService.swift */,
 				218A16BA27EC9FBD00196FBF /* ModelClasses.swift */,
+				219E7E9727F5E09D00A1A7B1 /* FavPhotosTableViewController.swift */,
+				219E7E9927F5E17200A1A7B1 /* photoDataModel.xcdatamodeld */,
+				219E7E9C27F5E28500A1A7B1 /* CoreDataService.swift */,
+				219E7E9E27F5F03A00A1A7B1 /* imageViewController.swift */,
 			);
 			path = Mars_APIAPp;
 			sourceTree = "<group>";
@@ -144,10 +156,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				219E7E9F27F5F03A00A1A7B1 /* imageViewController.swift in Sources */,
 				218A16A927EC9C2400196FBF /* ViewController.swift in Sources */,
 				218A16BB27EC9FBD00196FBF /* ModelClasses.swift in Sources */,
 				218A16A527EC9C2400196FBF /* AppDelegate.swift in Sources */,
+				219E7E9B27F5E17200A1A7B1 /* photoDataModel.xcdatamodeld in Sources */,
+				219E7E9D27F5E28500A1A7B1 /* CoreDataService.swift in Sources */,
 				218A16B927EC9E7800196FBF /* NetworkService.swift in Sources */,
+				219E7E9827F5E09D00A1A7B1 /* FavPhotosTableViewController.swift in Sources */,
 				218A16A727EC9C2400196FBF /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -364,6 +380,19 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		219E7E9927F5E17200A1A7B1 /* photoDataModel.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				219E7E9A27F5E17200A1A7B1 /* photoDataModel.xcdatamodel */,
+			);
+			currentVersion = 219E7E9A27F5E17200A1A7B1 /* photoDataModel.xcdatamodel */;
+			path = photoDataModel.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = 218A169927EC9C2400196FBF /* Project object */;
 }

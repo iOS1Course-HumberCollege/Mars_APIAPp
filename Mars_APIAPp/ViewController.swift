@@ -21,7 +21,7 @@ class ViewController: UIViewController,
     @IBOutlet weak var itemsID_picker: UIPickerView!
     @IBOutlet weak var date_picker: UIDatePicker!
     @IBOutlet weak var image: UIImageView!
-
+    var currentPhotoCollection: PhotoCollection?
     var rovers = ["Curiosity", "Opportunity", "Spirit"]
     
     func getNewData(roverName: String, date:String)  {
@@ -29,6 +29,7 @@ class ViewController: UIViewController,
             switch resutl {
             case .success(let photoCollection) :
                 DispatchQueue.main.async {
+                    self.currentPhotoCollection = photoCollection
                     self.result = photoCollection
                     self.itemsID_picker.reloadAllComponents()
                     self.numberOfPhotosLabel.text = "Num Of Photos: " + String( self.result.photos.count)
@@ -48,6 +49,31 @@ class ViewController: UIViewController,
         
     }
     
+    @IBAction func saveNewImage(_ sender: Any) {
+        
+        let alert = UIAlertController.init(title: "Are You Sure", message: "Do you want to save this iamge?", preferredStyle: .alert)
+        
+        
+        alert.addAction(UIAlertAction(title: "Save", style: .default, handler: { action in
+            let imageIndex = self.itemsID_picker.selectedRow(inComponent: 0)
+            let currentImage = self.currentPhotoCollection?.photos[imageIndex]
+            let dataFormatter = DateFormatter()
+            dataFormatter.dateFormat = "yyyy-MM-dd"
+            let stringDate = dataFormatter.string(from: self.date_picker.date)
+            let roverName = self.rovers[self.rovers_picker.selectedRow(inComponent: 0)]
+            
+            CoreDataService.Shared.insertPhotoIntoStorage(id: currentImage!.id, roverName: roverName, date: stringDate, url: currentImage!.img_src)
+            
+            
+        }))
+        
+        
+        present(alert, animated: true)
+        
+        
+        
+        
+    }
     @objc func datePickerValueChanged(picker: UIDatePicker)  {
         let dataFormatter = DateFormatter()
         dataFormatter.dateFormat = "yyyy-MM-dd"
